@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="content-type" 
+        content="text/html; 
+        charset=utf-8" />
+        <title> Index </title>
+
+        <link rel="stylesheet" href="public/css/style.css" media="screen" charset="utf-8">  
+        <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <h1 class="product_title">Team Friday: Project Demonstration</h1>
+        <h2 class="version"> Version 1.0.0 </h2>
+        <div class="form_container1">
+            <form action="/create" method="post" id="create_model_form">
+                <div class="form-container">
+                    <h2>Service 1: Create a Model</h2>
+                    <div class="service_description">
+                        Service 1 allows the user to create a model by entering the desired model name,
+                        and the timestamp of the model.
+                    </div>
+                    <br>
+
+                    <label class="form_label"> Model Name: </label>
+        
+                    <div class="form_input_box"> 
+                        <input type="text" name="model_name" description"Model_Name" title="Model Name" required pattern="[a-zA-Z0-9]{4,}">
+                        <br><br>
+                    </div> 
+        
+                    <label class="form_label"> Timestamp: </label>
+                    <div class="form_input_box">
+                        <input type="text" name="timestamp" description"Time_Stamp" title="Timestamp">
+                    </div>
+                </div>
+                <div class="buttons_container">
+                        <button class="post_button" type="submit" value="Post"> Submit </button>
+                        <br><br>
+                        <button class="reset_button" type="reset" value="Reset"> Reset </button>
+                </div>
+            </form>
+        </div> 
+
+    
+        <div class="form_container2">                  
+            <form action="/add-document" id="add_document_form" method="post">
+                <h2>Service 2: Add a Document</h2>
+                <div class="form-container">
+                    <div class="service_description">
+                        Service 2 allows the user to add a document, this document is stored in a
+                        separate collection called 'add_Document_Collection', this collection holds
+                        a field for `model_ID` (will be used for Service 3 in future) and `plain_text`.
+                    </div>
+                    <br>
+                    <div class="service_description">
+                        The `plain_text` field allows the user to enter a string of words, the words and punctuation
+                        are then tokenized and saved into an array within the add_Document_Collection. Whitespace will not be
+                        tokenized.
+                    </div>
+                    <br>
+                    <label class="form_label"> Model ID: </label>    
+                    <div class="form_input_box"> 
+                        <input type="text" name="model_id" description"Model_ID" title="Model ID">
+                        <br><br>
+                    </div>
+                    <label class="form_label"> Document name: </label>    
+                    <div class="form_input_box"> 
+                        <input type="text" name="doc_name" description"doc_name" title="Doc Name">
+                        <br><br>
+                    </div>
+                    <label class="form_label"> Text: </label>
+                    <div class="form_input_box">
+                        <input type="text" rows="4" cols="50" name="plain_text" description"Plain_Text" title="Plain Text" required pattern="{1,}">
+                    </div>
+    
+                    <div class="buttons_container">
+                        <button class="post_button" type="submit" value="Post"> Submit </button>
+                        <br><br>
+                        <button class="reset_button" type="reset" value="Reset"> Reset </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    
+        <div class="load_container">
+            <h2>Load MongoDB local Database</h2>
+            <div class="service_description">
+                The following buttons each load a separate collection from the local MongoDB.
+                The first button will load the collection and documents inserted via Service 1.
+                The second will load the collection `add_Document_Collection` and it's documents.
+                There will be an array containing the tokenized `plain_text`.
+            </div>
+            <br>
+            <a href="/get-service1-data"><button class="load_button"> 
+                Load Service 1
+                (Create a Model)
+            </button></a>
+            
+            <br><br>
+
+            <a href="/get-service2-data"><button class="load_button2"> 
+                Load Service 2 
+                (Add a Document)
+            </button></a>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(() => {
+                $('#searchName').click(() => {
+                    var getDataUrl = 'get-data/'+ $("#search_box").val();
+                    $.ajax({
+                        url: getDataUrl,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: (data) => {
+                            var result = `<h2>`+$("#search_box").val()+` Documents</h2>`;
+                            var docNum = 1;
+    
+                            data.forEach((entry) => {
+                                const { _id, model_name, plain_text, tokenized_text } = entry;
+                                
+                                result +=
+                                    `<div>
+                                        <h4>Document ${docNum}</h4>
+                                            <ul>
+                                               <li>Plain Text: ${plain_text}</li>
+                                            </ul>
+                                    </div>`;
+    
+                                docNum++;
+                                
+                                document.getElementById('displayDocs').innerHTML = result;
+                            });
+    
+                        }
+                    });   
+                });
+            });
+        </script>  
+
+        <div class="search_container">
+            <h2>Search via Model Name</h2>
+            <div class="service_description">
+                This component allows the user to search the database for a Model Name and it's documents.
+            </div>
+            <br>
+            <label class="form_label">Model Name:</label>
+            <input type="text" id="search_box" name="inputName" description="Input ID" title="Search ID">
+            <br><br>
+            <button class="post_button" id="searchName" type="submit" value="search">Search</button>
+        </div>
+
+        <p id="displayDocs"></p>
+    </body>
+</html>
