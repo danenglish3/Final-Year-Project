@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; 
+        charset=utf-8" />
+    <title> Document Annotation </title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src='../public/js/spectrum.js'></script>
+    <link rel='stylesheet' href='../public/css/spectrum.css' />
+
+
+</head>
+
+<body onload="getDocuments()">
+    <div class="containter">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">Document Annotation Page</h1><br />
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin: auto">
+            <div class="col-md-3" id="docChoice">
+                <div class="row">
+                    <div class="col-md-10">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Documents:</th>
+                                </tr>
+                            </thead>
+                            <tbody id="documentTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" id="docText" type="sda">
+                <p id="documentTextArea">Document Text Goes Here</p>
+            </div>
+            <div class="col-md-2 offset-md-1" id="docAnnotate">
+                <div class="row">
+                    <h4><b><u>Annotation</u></b></h4>
+                </div>
+                <br />
+                <div class="row">
+                    <label class="form_label">Word to assign entity to: </label>
+                </div>
+                <div class="row">
+                    <input type="text" id="word" name="nameToAnn">
+                </div>
+                <br />
+                <div class="row">
+                    <label">Choose an entity from the list</label>
+                </div>
+                <div class="row">
+                    <br />
+                    <select id="entitySelect" name="entitySelect">
+                        <option value="PERSON" id="PERSON" colour="FFFF00">PERSON</option>
+                        <option value="ORGANIZATION" id="ORGANIZATION" colour="0000FF">ORGANIZATION</option>
+                        <option value="LOCATION" id="LOCATION" colour="00FF00">LOCATION</option>
+                    </select>
+                </div>
+                <br />
+                <div class="row" id="acceptAnnotation">
+                    <button onclick="match()">Match</button>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="row">
+                    <label class="form_label"><b>New Entity Creation</b></label>
+                </div>
+                <div class="row">
+                    <label class="form_label">Enter a new entity and colour below:</label>
+                </div>
+                <div class="row">
+                    <input type="text" id="newEntity" name="newEntity">
+                </div>
+                <br />
+                <!-- Colour picker tool - created by spectrum -->
+                <div class="row">
+                    <input type='text' id="customColourPicker" />
+                </div>
+                </br />
+
+                <div class="row" id="createNewEntity">
+                    <button onclick="createNewEntity()">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin: auto">
+            <div class="col-md-3" id="generateModelColumn">
+                </br></br>
+                <div class="row" style="margin: auto" id="generateModel">
+                    <button onclick="generateModel()">Generate Model</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="../public/js/scripts.js"></script>
+
+
+</body>
+
+</html>
