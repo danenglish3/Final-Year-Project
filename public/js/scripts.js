@@ -1,7 +1,11 @@
 /* This function is responisble for calling the generate model api */
 function generateModel() {
     const model_id = "1";
+<<<<<<< HEAD
     var generateModelUrl = '/generate-model/' + model_id;
+=======
+    var generateModelUrl = (window.location.pathname === '/annotate') ? '/generate-model/' + model_id : '/v2/generate-model/' + model_id;
+>>>>>>> master
     $.ajax({
         url: generateModelUrl,
         type: 'POST',
@@ -23,13 +27,21 @@ function updateTextArea(data) {
 
     //Gets the avaliable entity selections from the webpage. Need the Value and Colour value from them
     var entityColours = document.getElementById("entitySelect").children;
+<<<<<<< HEAD
     console.log(entityColours);
+=======
+
+>>>>>>> master
     //For each element in the tokenized text document we need to loop through them and assign
     //a highlighted colour if they have been annotated
     tokenized_text.forEach(element => {
 
         //Loop through the entity elements from the html page
+<<<<<<< HEAD
         for (var i = 0; i < entityColours.length; i++) {
+=======
+        for(var i = 0; i < entityColours.length; i++){
+>>>>>>> master
             if (element.value == entityColours[i].getAttribute("value")) {
 
                 //Sets the background of the word, to the colour attribted to the entity
@@ -38,7 +50,11 @@ function updateTextArea(data) {
 
                 //If no entity is set, just set it plainl
                 // TODO: Make this a conditional before starting loop - speed up the process
+<<<<<<< HEAD
             } if (i === entityColours.length - 1) {
+=======
+            }if (i === entityColours.length-1) {
+>>>>>>> master
                 builtText += (" " + element.id);
             }
         }
@@ -61,11 +77,14 @@ function match() {
     } else if (document.getElementById("word").value === '') {
         alert("Please pick a word to assign an entity to");
     } else {
+<<<<<<< HEAD
 
 
 
 
         
+=======
+>>>>>>> master
         //Get the words that have been input by the user
         var wordList = document.getElementById("word").value.match(/[-+]?[0-9]\.?[0-9]+|\w+|\S/g);
 
@@ -77,7 +96,12 @@ function match() {
             value: document.getElementById("entitySelect").value,
         }
 
+<<<<<<< HEAD
         var postDataUrl = '../update/entity/' + data.docID + '/' + data.wordList + '/' + data.value;
+=======
+        //TODO: finish version 2..
+        var postDataUrl = (window.location.pathname === '/annotate') ? '/update/entity/' + data.docID + '/' + data.wordList + '/' + data.value : '/v2/update/entity/' + data.docID + '/' + data.wordList + '/' + data.value;
+>>>>>>> master
         $.ajax({
             url: postDataUrl,
             type: 'POST',
@@ -98,14 +122,22 @@ function match() {
 document avalibale to be annotated */
 function getDocuments() {
 
+<<<<<<< HEAD
     var url = '../getAllDocuments';
+=======
+    var url = (window.location.pathname === '/annotate') ? '../getAllDocuments' : '../v2/getAllDocuments';
+>>>>>>> master
 
     $.ajax({
         url: url,
         type: 'GET',
         dataType: 'JSON',
         success: (data) => {
+<<<<<<< HEAD
             console.log(data);
+=======
+
+>>>>>>> master
             //The entity list from the model is attached to the JSON object as the first element
             //Its poped off to make for easier usage
             var entityList = data.pop();
@@ -175,6 +207,7 @@ function getDoc(doc) {
     });
 }
 
+<<<<<<< HEAD
 function createNewEntity() {
     if (document.getElementById("newEntity").value === '') {
         alert("Please enter a new entity first");
@@ -227,3 +260,10 @@ function getSelectionText() {
 document.onmouseup = document.onselectionchange = function() {
   getSelectionText();
 };
+=======
+/* ----------- Version 2 functions -------------- */
+
+$(function () {
+
+})
+>>>>>>> master
